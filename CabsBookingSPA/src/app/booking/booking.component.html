@@ -1,0 +1,55 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th colspan="10" class="text-center"><h3>Booking List</h3></th>
+        </tr>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Email</th>
+      <th scope="col">Booking Date</th>
+      <th scope="col">Booking Time</th>
+      <th scope="col">From</th>
+      <th scope="col">To</th>
+      <th scope="col">Picking Up Address</th>
+      <th scope="col">Landmark</th>
+      <th scope="col" class="text-center">Operation</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let booking of bookings; index as i">
+            <th scope="row">{{i + 1}}</th>
+            <td>
+                {{booking.email}}
+            </td> 
+            <td>
+                {{booking.bookingDate | date:'MM/dd/yyyy'}}
+            </td> 
+            <td>
+                {{booking.bookingTime}}
+            </td> 
+            <td>
+                {{booking.from.placeName}}
+            </td> 
+            <td>
+                {{booking.to.placeName}}
+            </td> 
+            <td>
+                {{booking.pickupAddress}}
+            </td> 
+            <td>
+                {{booking.landMark}}
+            </td> 
+            <td>
+                <button type="button" class="btn btn-primary">Edit</button>
+            </td> 
+            <td>
+                <button type="button" class="btn btn-danger">Delete</button>
+            </td> 
+        </tr>
+      <td colspan="10"><app-add-booking></app-add-booking></td>
+    </tbody>
+  </table>
+  
+  
+  
+  

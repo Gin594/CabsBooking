@@ -9,8 +9,6 @@ namespace CabsBooking.Core.Models.Response
         public string Email { get; set; }
         public DateTime BookingDate { get; set; }
         public string BookingTime { get; set; }
-        public int FromPlace { get; set; }
-        public int ToPlace { get; set; }
         public string PickupAddress { get; set; }
         public string LandMark { get; set; }
         public DateTime PickupDate { get; set; }
@@ -18,5 +16,9 @@ namespace CabsBooking.Core.Models.Response
         public string ContactNo { get; set; }
         public string Status { get; set; }
 
+        public PlaceResponseModel From { get; set; }
+        public PlaceResponseModel To { get; set; }
     }
+
+
 }

@@ -60,6 +60,12 @@ namespace CabsBooking.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CabsBooking.API v1"));
             }
 
+            app.UseCors(builder =>
+            {
+                builder.WithOrigins(Configuration.GetValue<string>("clientSPAUrl")).AllowAnyHeader()
+                    .AllowAnyMethod().AllowCredentials();
+            });
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
