@@ -25,6 +25,6 @@ interface To {
 }
 
 interface Cab{
-    cabTypId: number,
+    cabTypeId: number,
     cabTypeName: string
 }

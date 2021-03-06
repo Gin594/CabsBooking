@@ -14,6 +14,8 @@ import { FooterComponent } from './core/layout/footer/footer.component';
 import { AddBookingComponent, AddBookingModalContent } from './modal/add-booking/add-booking.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { from } from 'rxjs';
+import { EditBookingComponent, EditBookingModalContent } from './modal/edit-booking/edit-booking.component';
+import { PlaceComponent } from './place/place.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,10 @@ import { from } from 'rxjs';
     HeaderComponent,
     FooterComponent,
     AddBookingComponent,
-    AddBookingModalContent
+    AddBookingModalContent,
+    EditBookingComponent,
+    EditBookingModalContent,
+    PlaceComponent
   ],
   imports: [
     BrowserModule,

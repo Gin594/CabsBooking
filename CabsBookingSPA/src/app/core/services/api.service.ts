@@ -30,6 +30,12 @@ export class ApiService {
     )
   }
 
+  updateBooking(path: string, booking:BookingRequest) : Observable<any>{
+    return this.http.put(`${environment.apiUrl}${path}`, booking).pipe(
+      map(resp => resp as any)
+    )
+  }
+
   getAllPlaces(path:string) : Observable<any[]>{
     return this.http.get(`${environment.apiUrl}${path}`).pipe(
       map(resp => resp as any[])

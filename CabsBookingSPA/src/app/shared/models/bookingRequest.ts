@@ -1,4 +1,5 @@
 export interface BookingRequest{
+    id?: number,
     email:string,
     bookingDate?: Date,
     bookingTime?: string,

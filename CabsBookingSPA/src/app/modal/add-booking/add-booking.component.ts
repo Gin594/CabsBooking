@@ -127,7 +127,7 @@ import { PlaceResponse } from 'src/app/shared/models/placeResponse';
           </div>
         </div>
  
-        <input type="submit" class="btn btn-primary" value="submit" />
+        <input type="submit" class="btn btn-primary" value="Adding" />
       </form>
     </div>
   </div>
@@ -142,12 +142,11 @@ export class AddBookingModalContent {
   @Input() cabs: CabResponse[] = [];
 
   booking: BookingRequest = {
-    email: '', bookingDate: new Date(),
+    id:undefined, email: '', bookingDate: undefined,
     bookingTime: undefined, cabTypeId: undefined, contactNo: '',
     fromPlace: undefined, toPlace: undefined, landMark: '', pickupAddress: '',
     pickupDate: new Date(), pickupTime: ''
   };
-  result!: BookingResponse;
   constructor(public activeModal: NgbActiveModal, private bookingService: BookingService) { }
 
   addBooking() {
@@ -196,20 +195,20 @@ export class AddBookingComponent implements OnInit {
     this.placeService.getAll().subscribe(
       res => {
         this.places = res;
-        console.log("Inside the AddBookingComponent ngOnInit, loading places...")
+        console.log("Inside the AddBookingComponent ngOnInit method, loading places...")
         console.log(this.places);
       }
     )
     this.cabService.getAll().subscribe(
       res => {
-        console.log("Inside the AddBookingComponent ngOnInit, loading cabs...")
+        console.log("Inside the AddBookingComponent ngOnInit method, loading cabs...")
         this.cabs = res;
         console.log(this.cabs);
       }
     )
   }
   open() {
-    console.log("Inside add booking component")
+    console.log("Inside add booking Modal")
     const modalRef = this.modalService.open(AddBookingModalContent);
     modalRef.componentInstance.places = this.places;
     modalRef.componentInstance.cabs = this.cabs;

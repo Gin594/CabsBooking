@@ -23,6 +23,10 @@ export class BookingService {
     return this.apiService.deleteBooking("booking", id);
   }
 
+  updateBooking(booking:BookingRequest) : Observable<any>{
+    return this.apiService.updateBooking("booking/edit", booking);
+  }
+
   private _listeners = new Subject<any>();
 
   listen() : Observable<any>{
