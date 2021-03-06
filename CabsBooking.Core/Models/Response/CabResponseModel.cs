@@ -6,6 +6,7 @@ namespace CabsBooking.Core.Models.Response
 {
     public class CabResponseModel
     {
+        public int CabTypeId { get; set; }
         public string CabTypeName { get; set; }
 
     }

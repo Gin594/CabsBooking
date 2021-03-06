@@ -18,13 +18,24 @@ export class BookingComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    console.log("Inside booking ngOnInit")
-    this.bookingService.getAllBookings().subscribe(
+    this.bookingService.getAll().subscribe(
       res => {
         this.bookings = res;
+        console.log("Inside booking ngOnInit")
         console.log(this.bookings);
       }
     )
+  }
+
+  deleteBooking(id:number){
+    if(confirm("Are you sure to delete this booking?")) {
+      this.bookingService.deleteBooking(id).subscribe(
+        res => {
+          console.log("Deleted");
+          this.bookingService.filter("Booking deleted");
+        }
+      )
+    }
   }
 
 }

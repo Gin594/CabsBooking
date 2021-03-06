@@ -6,6 +6,7 @@ namespace CabsBooking.Core.Models.Response
 {
     public class BookingResponseModel
     {
+        public int Id { get; set; }
         public string Email { get; set; }
         public DateTime BookingDate { get; set; }
         public string BookingTime { get; set; }
@@ -18,6 +19,7 @@ namespace CabsBooking.Core.Models.Response
 
         public PlaceResponseModel From { get; set; }
         public PlaceResponseModel To { get; set; }
+        public CabResponseModel Cab { get; set; }
     }
 
 

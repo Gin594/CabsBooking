@@ -44,7 +44,7 @@ namespace CabsBooking.API.Controllers
         }
 
         [HttpDelete]
-        [Route("delete")]
+        [Route("{id:int}")]
         public async Task<IActionResult> DeleteBooking(int id)
         {
             await _bookingService.DeleteBooking(id);

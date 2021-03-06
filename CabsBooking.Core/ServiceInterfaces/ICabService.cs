@@ -1,4 +1,5 @@
 ﻿using CabsBooking.Core.Entities;
+using CabsBooking.Core.Models.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,9 +9,9 @@ namespace CabsBooking.Core.ServiceInterfaces
 {
     public interface ICabService
     {
-        Task<Cab> AddCab(Cab cab);
-        Task<Booking> UpdateCab(Cab cab);
+        Task<CabResponseModel> AddCab(Cab cab);
+        Task<CabResponseModel> UpdateCab(Cab cab);
         Task DeleteCab(Cab cab);
-        Task<IEnumerable<Cab>> GetAllCabs();
+        Task<IEnumerable<CabResponseModel>> GetAllCabs();
     }
 }

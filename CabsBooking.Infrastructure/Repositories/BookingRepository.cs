@@ -36,7 +36,7 @@ namespace CabsBooking.Infrastructure.Repositories
 
         public async Task<IEnumerable<Booking>> ListAllAsync()
         {
-            return await _dbContext.Bookings.Include(b => b.From).Include(b => b.To).ToListAsync();
+            return await _dbContext.Bookings.Include(b => b.From).Include(b => b.To).Include(b => b.Cab).ToListAsync();
         }
 
         public async Task<Booking> UpdateAsync(Booking booking)

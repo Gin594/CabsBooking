@@ -1,7 +1,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th colspan="10" class="text-center"><h3>Booking List</h3></th>
+            <th colspan="13" class="text-center"><h3>Booking List</h3></th>
         </tr>
     <tr>
       <th scope="col">#</th>
@@ -10,9 +10,12 @@
       <th scope="col">Booking Time</th>
       <th scope="col">From</th>
       <th scope="col">To</th>
-      <th scope="col">Picking Up Address</th>
+      <th scope="col">Pickup Date</th>
+      <th scope="col">pickup Time</th>
+      <th scope="col">PickUp Address</th>
       <th scope="col">Landmark</th>
-      <th scope="col" class="text-center">Operation</th>
+      <th scope="col">CabTypeName</th>
+      <th scope="col" colspan="2" class="text-center">Operation</th>
     </tr>
     </thead>
     <tbody>
@@ -34,19 +37,28 @@
                 {{booking.to.placeName}}
             </td> 
             <td>
+                {{booking.pickupDate | date:'MM/dd/yyyy'}}
+            </td> 
+            <td>
+                {{booking.pickupTime}}
+            </td> 
+            <td>
                 {{booking.pickupAddress}}
             </td> 
             <td>
                 {{booking.landMark}}
             </td> 
             <td>
-                <button type="button" class="btn btn-primary">Edit</button>
+                {{booking.cab.cabTypeName}}
             </td> 
             <td>
-                <button type="button" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-primary" [ngStyle]="{width: '80px'}">Edit</button>
+            </td> 
+            <td>
+                <button type="button" class="btn btn-danger" [ngStyle]="{width: '80px'}" (click)="deleteBooking(booking.id)">Delete</button>
             </td> 
         </tr>
-      <td colspan="10"><app-add-booking></app-add-booking></td>
+      <td colspan="13"><app-add-booking></app-add-booking></td>
     </tbody>
   </table>
   

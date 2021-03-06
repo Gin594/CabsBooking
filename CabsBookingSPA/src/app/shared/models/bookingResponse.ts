@@ -10,13 +10,21 @@ export interface BookingResponse{
     cabTypeId?: number,
     contactNo: string,
     from: From,
-    to: To
+    to: To,
+    cab: Cab
 }
 
 interface From {
+    placeId: number,
     placeName: string
 }
 
 interface To {
+    placeId: number,
     placeName: string
+}
+
+interface Cab{
+    cabTypId: number,
+    cabTypeName: string
 }

@@ -11,12 +11,16 @@ export class BookingService {
 
   constructor(private apiService:ApiService) { }
 
-  getAllBookings() : Observable<BookingResponse[]>{
-    return this.apiService.getAll("booking");
+  getAll() : Observable<BookingResponse[]>{
+    return this.apiService.getAllBookings("booking");
   }
 
   addBooking(booking:BookingRequest) : Observable<BookingRequest>{
     return this.apiService.addBooking("booking/add", booking);
+  }
+
+  deleteBooking(id:number) : Observable<any>{
+    return this.apiService.deleteBooking("booking", id);
   }
 
   private _listeners = new Subject<any>();

@@ -1,4 +1,7 @@
-﻿using CabsBooking.Core.Entities;
+﻿using AutoMapper;
+using CabsBooking.Core.Entities;
+using CabsBooking.Core.Models.Response;
+using CabsBooking.Core.RepositoryInterfaces;
 using CabsBooking.Core.ServiceInterfaces;
 using System;
 using System.Collections.Generic;
@@ -9,7 +12,14 @@ namespace CabsBooking.Infrastructure.Services
 {
     public class PlaceService : IPlaceService
     {
-        public Task<Place> AddPlace(Place place)
+        private readonly IPlaceRepository _placeRepository;
+        private readonly IMapper _mapper;
+        public PlaceService(IPlaceRepository placeRepository, IMapper mapper)
+        {
+            _placeRepository = placeRepository;
+            _mapper = mapper;
+        }
+        public Task<PlaceResponseModel> AddPlace(Place place)
         {
             throw new NotImplementedException();
         }
@@ -19,12 +29,13 @@ namespace CabsBooking.Infrastructure.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Place>> GetAllPlaces()
+        public async Task<IEnumerable<PlaceResponseModel>> GetAllPlaces()
         {
-            throw new NotImplementedException();
+            var places = await _placeRepository.ListAllAsync();
+            return _mapper.Map<IEnumerable<PlaceResponseModel>>(places);
         }
 
-        public Task<Place> UpdatePlace(Place place)
+        public Task<PlaceResponseModel> UpdatePlace(Place place)
         {
             throw new NotImplementedException();
         }

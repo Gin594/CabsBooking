@@ -1,8 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BookingService } from 'src/app/core/services/booking.service';
+import { CabService } from 'src/app/core/services/cab.service';
+import { PlaceService } from 'src/app/core/services/place.service';
 import { BookingRequest } from 'src/app/shared/models/bookingRequest';
 import { BookingResponse } from 'src/app/shared/models/bookingResponse';
+import { CabResponse } from 'src/app/shared/models/cabResponse';
+import { PlaceResponse } from 'src/app/shared/models/placeResponse';
 
 @Component({
   selector: 'app-modal-content',
@@ -82,30 +86,33 @@ import { BookingResponse } from 'src/app/shared/models/bookingResponse';
             <div class="col">
             <div class="form-group">
               <label for="from">From</label>
-              <select class="form-control" name="fromPlace" id="from" [(ngModel)]="booking.fromPlace">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+              <select class="form-control" name="fromPlace" id="from" #selectFrom (change)="getFromPlaceId(selectFrom.value)" required>
+              <option hidden></option>
+              <option *ngFor="let place of places" [value]="place.placeId">{{place.placeName}}</option>
               </select>
             </div>
             </div>
             <div class="col">
             <div class="form-group">
               <label for="to">To</label>
-              <select class="form-control" id="to" name="toPlace" [(ngModel)]="booking.toPlace">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+              <select class="form-control" id="to" name="toPlace" #selectTo (change)="getToPlaceId(selectTo.value)">
+                <option hidden></option>
+                <option *ngFor="let place of places" [value]="place.placeId">{{place.placeName}}</option>
               </select>
             </div>
             </div>
         </div>
 
         <div class="row">
+          <div class = "col">
+          <div class="form-group">
+              <label for="cab">Cab Type</label>
+              <select class="form-control" id="cab" name="cabType" #selectCab (change)="getCabTypeId(selectCab.value)">
+                <option hidden></option>
+                <option *ngFor="let cab of cabs" [value]="cab.cabTypeId">{{cab.cabTypeName}}</option>
+              </select>
+            </div>
+          </div>
           <div class = "col">
           <div class="form-group">
               <label for="txtAddress">Pickup Address</label>
@@ -131,9 +138,12 @@ import { BookingResponse } from 'src/app/shared/models/bookingResponse';
 })
 export class AddBookingModalContent {
 
+  @Input() places:PlaceResponse[] = [];
+  @Input() cabs: CabResponse[] = [];
+
   booking: BookingRequest = {
     email: '', bookingDate: new Date(),
-    bookingTime: new Date().toTimeString(), cabTypeId: undefined, contactNo: '',
+    bookingTime: undefined, cabTypeId: undefined, contactNo: '',
     fromPlace: undefined, toPlace: undefined, landMark: '', pickupAddress: '',
     pickupDate: new Date(), pickupTime: ''
   };
@@ -142,14 +152,29 @@ export class AddBookingModalContent {
 
   addBooking() {
     console.log(this.booking)
-    // this.bookingService.addBooking(this.booking).subscribe(
-    //   res => {
-    //     console.log(res);
-    //     this.onClose();
-    //   }
-    // )
+    var hour = new Date().getHours().toString();
+    var minute = new Date().getMinutes().toString();
+    this.booking.bookingTime = hour+ ":" + minute
+    this.bookingService.addBooking(this.booking).subscribe(
+      res => {
+        console.log("Inside add booking method")
+        console.log(res);
+        this.onClose();
+      }
+    )
   }
 
+  getFromPlaceId(value:any){
+    this.booking.fromPlace = value;
+  }
+
+  getToPlaceId(value:any){
+    this.booking.toPlace = value;
+  }
+
+  getCabTypeId(value:any) {
+    this.booking.cabTypeId = value;
+  }
   onClose() {
     this.activeModal.close();
     this.bookingService.filter("Booking added");
@@ -163,14 +188,30 @@ export class AddBookingModalContent {
 })
 export class AddBookingComponent implements OnInit {
 
-
-  constructor(private modalService: NgbModal) { }
+  places: PlaceResponse[] = [];
+  cabs : CabResponse[] = [];
+  constructor(private modalService: NgbModal, private placeService:PlaceService, private cabService:CabService) { }
 
   ngOnInit(): void {
-    
+    this.placeService.getAll().subscribe(
+      res => {
+        this.places = res;
+        console.log("Inside the AddBookingComponent ngOnInit, loading places...")
+        console.log(this.places);
+      }
+    )
+    this.cabService.getAll().subscribe(
+      res => {
+        console.log("Inside the AddBookingComponent ngOnInit, loading cabs...")
+        this.cabs = res;
+        console.log(this.cabs);
+      }
+    )
   }
   open() {
     console.log("Inside add booking component")
     const modalRef = this.modalService.open(AddBookingModalContent);
+    modalRef.componentInstance.places = this.places;
+    modalRef.componentInstance.cabs = this.cabs;
   }
 }
