@@ -1,4 +1,5 @@
 using CabsBooking.Infrastructure.Data;
+using CabsBooking.Infrastructure.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +32,9 @@ namespace CabsBooking.API
 
             services.AddControllers();
 
+            ConfigureDependencyInjection(services);
+            services.AddAutoMapper(typeof(CabsBookingMappingProfile));
+
             services.AddDbContext<CabsBookingDbContext>(option =>
                 option.UseSqlServer(Configuration.GetConnectionString("CabsBookingDbConnection")));
 
@@ -38,6 +42,12 @@ namespace CabsBooking.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CabsBooking.API", Version = "v1" });
             });
+        }
+
+        private void ConfigureDependencyInjection(IServiceCollection services)
+        {
+            services.AddRepositories();
+            services.AddServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

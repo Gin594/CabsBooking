@@ -10,7 +10,7 @@ namespace CabsBooking.Core.ServiceInterfaces
     {
         Task<Cab> AddCab(Cab cab);
         Task<Booking> UpdateCab(Cab cab);
-        Task<Booking> DeleteCab(Cab cab);
+        Task DeleteCab(Cab cab);
         Task<IEnumerable<Cab>> GetAllCabs();
     }
 }

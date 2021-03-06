@@ -30,19 +30,23 @@ namespace CabsBooking.Infrastructure.Services
 
         }
 
-        public Task<Booking> DeleteBooking(Booking booking)
+        public async Task DeleteBooking(int id)
         {
-            throw new NotImplementedException();
+            var booking = await _bookingRepository.GetBookingById(id);
+            await _bookingRepository.DeleteAsync(booking);
         }
 
-        public Task<IEnumerable<Booking>> GetAllBookings()
+        public async Task<IEnumerable<BookingResponseModel>> GetAllBookings()
         {
-            throw new NotImplementedException();
+            var bookings = await _bookingRepository.ListAllAsync();
+            return _mapper.Map<IEnumerable<BookingResponseModel>>(bookings);
         }
 
-        public Task<Booking> UpdateBooking(Booking booking)
+        public async Task<BookingResponseModel> UpdateBooking(BookingRequestModel bookingRequest)
         {
-            throw new NotImplementedException();
+            var booking = _mapper.Map<Booking>(bookingRequest);
+            var response = await _bookingRepository.UpdateAsync(booking);
+            return _mapper.Map<BookingResponseModel>(response);
         }
     }
 }

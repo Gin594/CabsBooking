@@ -12,5 +12,6 @@ namespace CabsBooking.Core.RepositoryInterfaces
         Task<Booking> UpdateAsync(Booking booking);
         Task DeleteAsync(Booking booking);
         Task<IEnumerable<Booking>> ListAllAsync();
+        Task<Booking> GetBookingById(int id);
     }
 }

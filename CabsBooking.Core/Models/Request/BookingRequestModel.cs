@@ -6,6 +6,7 @@ namespace CabsBooking.Core.Models.Request
 {
     public class BookingRequestModel
     {
+        public int Id { get; set; }
         public string Email { get; set; }
         public DateTime BookingDate { get; set; }
         public string BookingTime { get; set; }
@@ -16,6 +17,7 @@ namespace CabsBooking.Core.Models.Request
         public DateTime PickupDate { get; set; }
         public string PickupTime { get; set; }
         public string ContactNo { get; set; }
+        public int CabTypeId  { get; set; }
 
     }
 }

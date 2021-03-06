@@ -19,9 +19,35 @@ namespace CabsBooking.API.Controllers
             _bookingService = bookingService;
         }
 
+        [HttpGet]
+        [Route("")]
+        public async Task<IActionResult> GetAll()
+        {
+            var bookings = await _bookingService.GetAllBookings();
+            return Ok(bookings);
+        }
+
+        [HttpPost]
+        [Route("add")]
         public async Task<IActionResult> AddBooking(BookingRequestModel bookingRequest)
         {
-            await _bookingService.AddBooking(bookingRequest);
+            var booking = await _bookingService.AddBooking(bookingRequest);
+            return Ok(booking);
+        }
+
+        [HttpPut]
+        [Route("edit")]
+        public async Task<IActionResult> EditBooking(BookingRequestModel bookingRequest)
+        {
+            var booking = await _bookingService.UpdateBooking(bookingRequest);
+            return Ok(booking);
+        }
+
+        [HttpDelete]
+        [Route("delete")]
+        public async Task<IActionResult> DeleteBooking(int id)
+        {
+            await _bookingService.DeleteBooking(id);
             return Ok();
         }
     }

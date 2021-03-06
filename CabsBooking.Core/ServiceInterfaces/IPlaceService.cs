@@ -10,7 +10,7 @@ namespace CabsBooking.Core.ServiceInterfaces
     {
         Task<Place> AddPlace(Place place);
         Task<Place> UpdatePlace(Place place);
-        Task<Place> DeletePlace(Place place);
+        Task DeletePlace(Place place);
         Task<IEnumerable<Place>> GetAllPlaces();
     }
 }

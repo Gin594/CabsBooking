@@ -10,7 +10,7 @@ namespace CabsBooking.Core.ServiceInterfaces
     {
         Task<BookingHistory> AddHistory(BookingHistory history);
         Task<BookingHistory> UpdateHistory(BookingHistory history);
-        Task<BookingHistory> DeleteHistory(BookingHistory history);
+        Task DeleteHistory(BookingHistory history);
         Task<IEnumerable<BookingHistory>> GetAllHistorys();
     }
 }

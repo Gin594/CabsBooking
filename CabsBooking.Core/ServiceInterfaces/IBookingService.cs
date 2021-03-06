@@ -11,8 +11,8 @@ namespace CabsBooking.Core.ServiceInterfaces
     public interface IBookingService
     {
         Task<BookingResponseModel> AddBooking(BookingRequestModel bookingRequest);
-        Task<Booking> UpdateBooking(Booking booking);
-        Task<Booking> DeleteBooking(Booking booking);
-        Task<IEnumerable<Booking>> GetAllBookings();
+        Task<BookingResponseModel> UpdateBooking(BookingRequestModel booking);
+        Task DeleteBooking(int id);
+        Task<IEnumerable<BookingResponseModel>> GetAllBookings();
     }
 }
