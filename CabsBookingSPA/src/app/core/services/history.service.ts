@@ -23,6 +23,10 @@ export class HistoryService {
     return this.apiService.deleteHistory("bookingHistory", id);
   }
 
+  updateHistory(history: HistoryRequest) : Observable<HistoryRequest> {
+    return this.apiService.updateHistory("bookingHistory/edit", history);
+  }
+
   private _listeners = new Subject<any>();
 
   listen() : Observable<any>{

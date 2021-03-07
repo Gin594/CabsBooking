@@ -1,4 +1,5 @@
 export interface HistoryRequest{
+    id?:number,
     email:string,
     bookingDate?: Date,
     bookingTime?: string,

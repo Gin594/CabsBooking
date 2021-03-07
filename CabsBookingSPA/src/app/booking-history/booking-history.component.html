@@ -65,10 +65,10 @@
                 {{history.feedback}}
             </td> 
             <td>
-                <!-- <app-edit-booking [booking] = 'booking'></app-edit-booking> -->
+                <app-edit-history [history] = 'history'></app-edit-history>
             </td> 
             <td>
-                <button type="button" class="btn btn-danger" [ngStyle]="{width: '80px'}" (click)="deleteHistory(history.id)">Delete</button>
+                <button type="button" class="btn btn-danger" [ngStyle]="{width: '100px'}" (click)="deleteHistory(history.id)">Delete</button>
             </td> 
         </tr>
     </tbody>

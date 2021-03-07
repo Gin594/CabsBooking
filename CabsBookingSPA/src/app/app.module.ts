@@ -20,6 +20,7 @@ import { EditPlaceComponent, EditPlaceModalContent } from './modal/edit-place/ed
 import { AddCabComponent, AddCabModalContent } from './modal/add-cab/add-cab.component';
 import { EditCabComponent, EditCabModalContent } from './modal/edit-cab/edit-cab.component';
 import { CompleteComponent, CompleteBookingModalContent } from './modal/complete/complete.component';
+import { EditHistoryComponent, EditHistoryModalContent } from './modal/edit-history/edit-history.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,9 @@ import { CompleteComponent, CompleteBookingModalContent } from './modal/complete
     EditCabComponent,
     EditCabModalContent,
     CompleteComponent,
-    CompleteBookingModalContent
+    CompleteBookingModalContent,
+    EditHistoryComponent,
+    EditHistoryModalContent
     
   ],
   imports: [

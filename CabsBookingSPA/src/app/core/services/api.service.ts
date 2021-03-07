@@ -105,4 +105,10 @@ export class ApiService {
     )
   }
 
+  updateHistory(path: string, history: HistoryRequest) : Observable<any> {
+    return this.http.put(`${environment.apiUrl}${path}`, history).pipe(
+      map(resp => resp as any)
+    )
+  }
+
 }
