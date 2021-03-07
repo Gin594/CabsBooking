@@ -13,13 +13,12 @@ import { HeaderComponent } from './core/layout/header/header.component';
 import { FooterComponent } from './core/layout/footer/footer.component';
 import { AddBookingComponent, AddBookingModalContent } from './modal/add-booking/add-booking.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { from } from 'rxjs';
 import { EditBookingComponent, EditBookingModalContent } from './modal/edit-booking/edit-booking.component';
 import { PlaceComponent } from './place/place.component';
 import { AddPlaceComponent, AddPlaceModalContent } from './modal/add-place/add-place.component';
 import { EditPlaceComponent, EditPlaceModalContent } from './modal/edit-place/edit-place.component';
-import { AddCabComponent } from './modal/add-cab/add-cab.component';
-import { EditCabComponent } from './modal/edit-cab/edit-cab.component';
+import { AddCabComponent, AddCabModalContent } from './modal/add-cab/add-cab.component';
+import { EditCabComponent, EditCabModalContent } from './modal/edit-cab/edit-cab.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +39,9 @@ import { EditCabComponent } from './modal/edit-cab/edit-cab.component';
     EditPlaceComponent,
     EditPlaceModalContent,
     AddCabComponent,
+    AddCabModalContent,
     EditCabComponent,
+    EditCabModalContent
     
   ],
   imports: [

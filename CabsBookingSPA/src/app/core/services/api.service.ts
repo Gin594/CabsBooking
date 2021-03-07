@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { BookingRequest } from 'src/app/shared/models/bookingRequest';
 import { PlaceRequest } from 'src/app/shared/models/placeRequest';
+import { CabRequest } from 'src/app/shared/models/cabRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -64,6 +65,24 @@ export class ApiService {
   getAllCabs(path: string) : Observable<any[]> {
     return this.http.get(`${environment.apiUrl}${path}`).pipe(
       map(resp => resp as any[])
+    )
+  }
+
+  addCab(path: string, cab: CabRequest) : Observable<any> {
+    return this.http.post(`${environment.apiUrl}${path}`, cab).pipe(
+      map(resp => resp as any)
+    )
+  }
+
+  updateCab(path: string, cab: CabRequest) : Observable<any> {
+    return this.http.put(`${environment.apiUrl}${path}`, cab).pipe(
+      map(resp => resp as any)
+    )
+  }
+
+  deleteCab(path: string, id:number) : Observable<any> {
+    return this.http.delete(`${environment.apiUrl}${path}`+'/'+id).pipe(
+      map(resp => resp as any)
     )
   }
 

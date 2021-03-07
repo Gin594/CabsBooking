@@ -23,7 +23,7 @@ export class PlaceService {
     return this.apiService.updatePlace("place/edit", place);
   }
 
-  deletePlace(id: number) : Observable<PlaceRequest> {
+  deletePlace(id: number) : Observable<any> {
     return this.apiService.deletePlace("place", id);
   }
 

@@ -10,7 +10,12 @@ import { CabResponse } from '../shared/models/cabResponse';
 export class CabComponent implements OnInit {
 
   cabs: CabResponse[] = [];
-  constructor(private cabService:CabService) { }
+  constructor(private cabService:CabService) {
+    this.cabService.listen().subscribe(res => {
+      console.log(res);
+      this.ngOnInit();
+    })
+   }
 
   ngOnInit(): void {
     this.cabService.getAll().subscribe(
@@ -20,6 +25,17 @@ export class CabComponent implements OnInit {
         console.log(this.cabs);
       }
     )
+  }
+
+  deleteCab(id:number) {
+    if(confirm("Are you sure to delete this cab?")) {
+      this.cabService.deleteCab(id).subscribe(
+        res => {
+          console.log("Deleted");
+          this.cabService.filter("Cab deleted");
+        }
+      )
+    }
   }
 
 }

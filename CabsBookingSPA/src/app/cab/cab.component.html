@@ -19,13 +19,14 @@
                         {{cab.cabTypeName}}
                     </td> 
                     <td>
-                        <button type="button" class="btn btn-primary" [ngStyle]="{width: '80px'}">Edit</button>
+                        <app-edit-cab [cab]='cab'></app-edit-cab>
                     </td> 
                     <td>
-                        <button type="button" class="btn btn-danger" [ngStyle]="{width: '80px'}" >Delete</button>
+                        <button type="button" class="btn btn-danger" [ngStyle]="{width: '80px'}" (click)="deleteCab(cab.cabTypeId)">Delete</button>
                     </td> 
                 </tr>
-              <td colspan="4"><button type="button" class="btn btn-success" >Add Cab</button>
+              <td colspan="4">
+                  <app-add-cab></app-add-cab>
               </td>
             </tbody>
           </table>
