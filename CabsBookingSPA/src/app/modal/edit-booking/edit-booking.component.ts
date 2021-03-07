@@ -119,6 +119,21 @@ import { PlaceResponse } from 'src/app/shared/models/placeResponse';
     </div>
     <div class = "col">
     <div class="form-group">
+        <label for="txtLandmark">Landmark</label>
+        <input
+          type="text"
+          class="form-control"
+          id="txtLandmark"
+          name="Landmark"
+          [(ngModel)]="editRequest.landMark"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+  <div class = "col">
+    <div class="form-group">
         <label for="txtAddress">Pickup Address</label>
         <input
           type="text"
