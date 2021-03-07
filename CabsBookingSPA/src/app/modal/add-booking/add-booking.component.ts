@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BookingService } from 'src/app/core/services/booking.service';
 import { CabService } from 'src/app/core/services/cab.service';
@@ -19,6 +20,9 @@ import { PlaceResponse } from 'src/app/shared/models/placeResponse';
         background-size: 23px;
         background-position: center;
       }
+      .error {
+        color: red;
+      }
         </style>
         <div class="modal-header">
       <h4 class="modal-title">Add Booking</h4>
@@ -28,7 +32,7 @@ import { PlaceResponse } from 'src/app/shared/models/placeResponse';
     </div>
     <div class="modal-body">
     <div class="row justify-content-center">
-      <form (ngSubmit)='addBooking()' >
+      <form (ngSubmit)='addBooking()' #f='ngForm' >
         <div class="row">
           <div class="col">
               <div class="form-group">
@@ -38,8 +42,12 @@ import { PlaceResponse } from 'src/app/shared/models/placeResponse';
                 class="form-control"
                 id="txtEmail"
                 name="email"
+                pattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"
+                #email = "ngModel"
+                required
                 [(ngModel)]="booking.email"
               />
+              <small class="error" *ngIf="email.invalid && email.touched">Invalid Email Format</small>
             </div>
           </div>
           <div class="col"> 
@@ -48,12 +56,14 @@ import { PlaceResponse } from 'src/app/shared/models/placeResponse';
                   <label>Pickup Date</label>
                 </div>
                 <div class="input-group">
-                  <input class="form-control" id="bookDate" placeholder="yyyy-mm-dd"
+                  <input class="form-control" id="bookDate" placeholder="yyyy-mm-dd" #pickupDate="ngModel"
                         name="dp" [ngModel]="booking.pickupDate | date: 'MM/dd/yyyy'" ngbDatepicker #d="ngbDatepicker">
-                  <div class="input-group-append">
+                        <div class="input-group-append">
                     <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
                   </div>
                 </div>
+                <small class="error" *ngIf="pickupDate.invalid && pickupDate.touched">Required</small>
+
               </div>
           </div>
         </div>
@@ -67,50 +77,57 @@ import { PlaceResponse } from 'src/app/shared/models/placeResponse';
                 class="form-control"
                 id="time"
                 name="pickupTime"
+                required
+                #pickupTime="ngModel"
                 [(ngModel)]="booking.pickupTime"
               />
+              <small class="error" *ngIf="pickupTime.invalid && pickupTime.touched">Required</small>
             </div>
             </div>
             <div class="col">
             <div class="form-group">
               <label for="phone">Phone Number</label>
-              <input type="tel" class="form-control" id="phone" name="phone"
-                      pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                      required>
-              <small>Format: 123-456-7890</small>
+              <input type="tel" class="form-control" id="phone" #phone="ngModel" name="phone"
+                      pattern = "[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                      required
+                      [(ngModel)]="booking.contactNo">
+              <small class="error" *ngIf="phone.invalid && phone.touched">Format: 123-456-7890</small>
             </div>
             </div>
         </div>
 
-        <div class= "row">
+        <div class= "row" [formGroup]='form'>
             <div class="col">
-            <div class="form-group">
+            <div class="form-group" >
               <label for="from">From</label>
-              <select class="form-control" name="fromPlace" id="from" #selectFrom (change)="getFromPlaceId(selectFrom.value)" required>
+              <select class="form-control" formControlName='from'  name="fromPlace" id="from" #selectFrom (change)="getFromPlaceId(selectFrom.value)" required>
               <option hidden></option>
               <option *ngFor="let place of places" [value]="place.placeId">{{place.placeName}}</option>
               </select>
+              <small class="error" *ngIf="form.get('from')?.invalid && form.get('from')?.touched">Required</small>
             </div>
             </div>
             <div class="col">
             <div class="form-group">
               <label for="to">To</label>
-              <select class="form-control" id="to" name="toPlace" #selectTo (change)="getToPlaceId(selectTo.value)">
+              <select class="form-control" id="to" formControlName='to' name="toPlace" #selectTo (change)="getToPlaceId(selectTo.value)">
                 <option hidden></option>
                 <option *ngFor="let place of places" [value]="place.placeId">{{place.placeName}}</option>
               </select>
+              <small class="error" *ngIf="form.get('to')?.invalid && form.get('to')?.touched">Required</small>
             </div>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" >
           <div class = "col">
-          <div class="form-group">
+          <div class="form-group" [formGroup] = "form">
               <label for="cab">Cab Type</label>
-              <select class="form-control" id="cab" name="cabType" #selectCab (change)="getCabTypeId(selectCab.value)">
+              <select class="form-control" id="cab" formControlName='cab' name="cabType" #selectCab (change)="getCabTypeId(selectCab.value)">
                 <option hidden></option>
                 <option *ngFor="let cab of cabs" [value]="cab.cabTypeId">{{cab.cabTypeName}}</option>
               </select>
+              <small class="error" *ngIf="form.get('cab')?.invalid && form.get('cab')?.touched">Required</small>
             </div>
           </div>
           <div class = "col">
@@ -121,8 +138,11 @@ import { PlaceResponse } from 'src/app/shared/models/placeResponse';
                 class="form-control"
                 id="txtLandmark"
                 name="landmark"
+                #landmark='ngModel'
+                required
                 [(ngModel)]="booking.landMark"
               />
+              <small class="error" *ngIf="landmark.invalid && landmark.touched">Required</small>
             </div>
           </div>
         </div>
@@ -136,13 +156,16 @@ import { PlaceResponse } from 'src/app/shared/models/placeResponse';
                 class="form-control"
                 id="txtAddress"
                 name="pickupAddress"
+                #pickupAddress = "ngModel"
+                required
                 [(ngModel)]="booking.pickupAddress"
               />
+              <small class="error" *ngIf="pickupAddress.invalid && pickupAddress.touched">Required</small>
             </div>
           </div>
         </div>
  
-        <input type="submit" class="btn btn-primary" value="Adding" />
+        <input type="submit" class="btn btn-primary" [disabled]="f.invalid" value="Adding" />
       </form>
     </div>
   </div>
@@ -152,6 +175,13 @@ import { PlaceResponse } from 'src/app/shared/models/placeResponse';
   `
 })
 export class AddBookingModalContent {
+
+  form = new FormGroup({
+    from: new FormControl('', Validators.required),
+    to: new FormControl('', Validators.required),
+    cab: new FormControl('', Validators.required),
+    
+  })
 
   @Input() places:PlaceResponse[] = [];
   @Input() cabs: CabResponse[] = [];
@@ -174,6 +204,9 @@ export class AddBookingModalContent {
         console.log("Inside add booking method")
         console.log(res);
         this.onClose();
+      },
+      error => {
+        console.log(error);
       }
     )
   }

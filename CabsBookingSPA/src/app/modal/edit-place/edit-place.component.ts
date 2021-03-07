@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PlaceService } from 'src/app/core/services/place.service';
 import { PlaceRequest } from 'src/app/shared/models/placeRequest';
@@ -17,12 +18,13 @@ import { PlaceResponse } from 'src/app/shared/models/placeResponse';
     <div class="row justify-content-center">
       <div class="col-8">
         <div class="modal-body">
-          <form (ngSubmit)='editPlace()'>
+          <form (ngSubmit)='editPlace()' [formGroup]="form">
               <div class="form-group">
                 <label for="txtPlace">Edit Place</label>
-                <input type="text" class="form-control" name="place" [(ngModel)]="placeRequest.placeName" id="txtPlace" placeholder="Enter Place">
+                <input type="text" class="form-control" formControlName='editPlace' name="place" [(ngModel)]="placeRequest.placeName" id="txtPlace" placeholder="Enter Place" required>
+                <small *ngIf="form.get('editPlace')?.invalid && form.get('editPlace')?.touched" [ngStyle]="{color: 'red'}">Place Required</small>
               </div>
-          <button type="submit" class="btn btn-primary">Edit</button>
+          <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Edit</button>
           </form>
           </div>
       </div>
@@ -34,6 +36,10 @@ import { PlaceResponse } from 'src/app/shared/models/placeResponse';
   `
 })
 export class EditPlaceModalContent {
+  
+  form = new FormGroup({
+    editPlace: new FormControl('', Validators.required)
+  });
 
   @Input()
   place!: PlaceResponse;
@@ -53,6 +59,9 @@ export class EditPlaceModalContent {
         console.log("Inside edit place method")
         console.log(res);
         this.onClose();
+      },
+      error => {
+        console.log(error);
       }
     )
   }

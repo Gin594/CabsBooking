@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CabsBooking.Core.Entities;
+using CabsBooking.Core.Exceptions;
 using CabsBooking.Core.Models.Request;
 using CabsBooking.Core.Models.Response;
 using CabsBooking.Core.RepositoryInterfaces;
@@ -32,6 +33,10 @@ namespace CabsBooking.Infrastructure.Services
         public async Task DeleteHistory(int id)
         {
             var history = await _historyRepository.GetHistoryById(id);
+            if (history == null)
+            {
+                throw new NotFoundException("No history found");
+            }
             await _historyRepository.DeleteAsync(history);
         }
 

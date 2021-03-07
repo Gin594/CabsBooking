@@ -15,12 +15,13 @@ import { CabRequest } from 'src/app/shared/models/cabRequest';
     <div class="row justify-content-center">
       <div class="col-8">
         <div class="modal-body">
-          <form (ngSubmit)='addCab()'>
+          <form (ngSubmit)='addCab()' #f='ngForm'>
               <div class="form-group">
                 <label for="txtCab">Add Place</label>
-                <input type="text" class="form-control" name="cab" [(ngModel)]="cab.cabTypeName" id="txtCab" placeholder="Enter Place">
+                <input type="text" #add='ngModel' required class="form-control" name="cab" [(ngModel)]="cab.cabTypeName" id="txtCab" placeholder="Enter Place">
+                <small class="error" *ngIf="add.invalid && add.touched" [ngStyle]="{color: 'red'}">Required</small>
               </div>
-          <button type="submit" class="btn btn-primary">Add</button>
+          <button type="submit" class="btn btn-primary" [disabled]="f.invalid">Add</button>
           </form>
           </div>
       </div>
@@ -44,6 +45,9 @@ export class AddCabModalContent {
         console.log("Inside add Cab method")
         console.log(res);
         this.onClose();
+      },
+      error => {
+        console.log(error);
       }
     )
   }

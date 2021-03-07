@@ -8,6 +8,11 @@ import { HistoryRequest } from 'src/app/shared/models/historyRequest';
 @Component({
   selector: 'complete-modal-content',
   template: `
+  <style>
+    .error {
+      color: red;
+    }
+  </style>
     <div class="modal-header">
       <h4 class="modal-title">Order Complete</h4>
       <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
@@ -17,16 +22,18 @@ import { HistoryRequest } from 'src/app/shared/models/historyRequest';
     <div class="row justify-content-center">
       <div class="col-8">
         <div class="modal-body">
-          <form (ngSubmit)='addHistory()'>
+          <form (ngSubmit)='addHistory()' #f='ngForm'>
               <div class="form-group">
                 <label for="feedback">Feedback</label>
-                <textarea type="text" class="form-control" name="comment" id="feedback" [(ngModel)]="history.feedback" placeholder="Enter Feedback"></textarea>
+                <textarea type="text" #feedback='ngModel' required class="form-control" name="comment" id="feedback" [(ngModel)]="history.feedback" placeholder="Enter Feedback"></textarea>
+                <small class="error" *ngIf="feedback.invalid && feedback.touched">Required</small>
               </div>
               <div class="form-group">
                 <label for="money">Charge</label>
-                <input type="number" class="form-control" id="money" name="charge" [(ngModel)]="history.charge" placeholder="Enter Money">
+                <input type="number" #money='ngModel' required class="form-control" id="money" name="charge" [(ngModel)]="history.charge" placeholder="Enter Money">
+                <small class="error" *ngIf="money.invalid && money.touched">Required</small>
               </div>
-          <button type="submit" class="btn btn-primary">Complete</button>
+          <button type="submit" class="btn btn-primary" [disabled]="f.invalid">Complete</button>
           </form>
           </div>
       </div>
@@ -80,6 +87,9 @@ export class CompleteBookingModalContent {
         console.log("Inside add history modal");
         console.log(res);
         this.onClose();
+      },
+      error => {
+        console.log(error);
       }
     )
     

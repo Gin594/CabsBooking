@@ -16,12 +16,13 @@ import { CabResponse } from 'src/app/shared/models/cabResponse';
     <div class="row justify-content-center">
       <div class="col-8">
         <div class="modal-body">
-          <form (ngSubmit)='editCab()'>
+          <form (ngSubmit)='editCab()' #f='ngForm'>
               <div class="form-group">
-                <label for="txtCab">Edit Place</label>
-                <input type="text" class="form-control" name="cab" id="txtCab" [(ngModel)]="cabRequest.cabTypeName" placeholder="Enter Place">
+                <label for="txtCab">Edit Cab</label>
+                <input type="text" #edit='ngModel' required class="form-control" name="cab" id="txtCab" [(ngModel)]="cabRequest.cabTypeName" placeholder="Enter Place">
+                <small class="error" *ngIf="edit.invalid && edit.touched" [ngStyle]="{color: 'red'}">Required</small>
               </div>
-          <button type="submit" class="btn btn-primary">Edit</button>
+          <button type="submit" class="btn btn-primary" [disabled]="f.invalid" >Edit</button>
           </form>
           </div>
       </div>
@@ -54,6 +55,9 @@ export class EditCabModalContent {
           console.log("Inside edit cab method")
           console.log(res);
           this.onClose();
+        },
+        error => {
+          console.log(error);
         }
       )
   }

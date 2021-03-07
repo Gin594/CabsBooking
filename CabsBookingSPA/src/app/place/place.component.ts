@@ -31,7 +31,10 @@ export class PlaceComponent implements OnInit {
       this.placeService.deletePlace(id).subscribe(
         res => {
           console.log(res);
-          this.placeService.filter("Booking deleted");
+          this.placeService.filter("Place deleted");
+        },
+        error => {
+          alert("Can not delete this place right now, because it is currently in use")
         }
       )
     }

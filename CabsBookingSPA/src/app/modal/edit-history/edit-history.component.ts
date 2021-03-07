@@ -19,6 +19,9 @@ import { PlaceResponse } from 'src/app/shared/models/placeResponse';
   background-size: 23px;
   background-position: center;
 }
+  .error {
+    color: red;
+  }
   </style>
   <div class="modal-header">
 <h4 class="modal-title">Edit History</h4>
@@ -28,7 +31,7 @@ import { PlaceResponse } from 'src/app/shared/models/placeResponse';
 </div>
 <div class="modal-body">
 <div class="row justify-content-center">
-<form (ngSubmit)='editHistory()' >
+<form (ngSubmit)='editHistory()' #f='ngForm'>
   <div class="row">
     <div class="col">
         <div class="form-group">
@@ -75,9 +78,10 @@ import { PlaceResponse } from 'src/app/shared/models/placeResponse';
       <div class="form-group">
         <label for="phone">Phone Number</label>
         <input type="tel" [(ngModel)]="editRequest.contactNo" class="form-control" id="phone" name="phone"
+                #phone='ngModel'
                 pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                 required>
-        <small>Format: 123-456-7890</small>
+        <small class="error" *ngIf="phone.invalid">Format: 123-456-7890</small>
       </div>
       </div>
   </div>
@@ -182,7 +186,7 @@ import { PlaceResponse } from 'src/app/shared/models/placeResponse';
       </div>
   </div>
 
-  <input type="submit" class="btn btn-primary" value="Edit" />
+  <input type="submit" class="btn btn-primary" [disabled]="f.invalid" value="Edit" />
 </form>
 </div>
 </div>
@@ -232,6 +236,9 @@ export class EditHistoryModalContent {
         console.log("Inside edit booking method...")
         console.log(res);
         this.onClose();
+      },
+      error => {
+        console.log(error);
       }
     )
   }

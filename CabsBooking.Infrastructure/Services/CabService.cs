@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CabsBooking.Core.Entities;
+using CabsBooking.Core.Exceptions;
 using CabsBooking.Core.Models.Request;
 using CabsBooking.Core.Models.Response;
 using CabsBooking.Core.RepositoryInterfaces;
@@ -30,6 +31,10 @@ namespace CabsBooking.Infrastructure.Services
         public async Task DeleteCab(int id)
         {
             var cab = await _cabRepository.GetCabById(id);
+            if (cab == null)
+            {
+                throw new NotFoundException("No cab found");
+            }
             await _cabRepository.DeleteAsync(cab);
         }
 

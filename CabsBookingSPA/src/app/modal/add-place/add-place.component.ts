@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PlaceService } from 'src/app/core/services/place.service';
 import { PlaceRequest } from 'src/app/shared/models/placeRequest';
@@ -15,28 +16,41 @@ import { PlaceRequest } from 'src/app/shared/models/placeRequest';
     <div class="row justify-content-center">
       <div class="col-8">
         <div class="modal-body">
-          <form (ngSubmit)='addPlace()'>
+          <form (ngSubmit)='addPlace()' [formGroup]="form">
               <div class="form-group">
                 <label for="txtPlace">Add Place</label>
-                <input type="text" class="form-control" name="place" [(ngModel)]="place.placeName" id="txtPlace" placeholder="Enter Place">
+                <input type="text"  formControlName="inputPlace" required class="form-control" name="place" [(ngModel)]="place.placeName" placeholder="Enter Place">
+                <small *ngIf="form.get('inputPlace')?.invalid && form.get('inputPlace')?.touched" [ngStyle]="{color: 'red'}">Place Required</small>
               </div>
-          <button type="submit" class="btn btn-primary">Add</button>
+          <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Add</button>
           </form>
           </div>
       </div>
     </div>
     
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+      <button type="button" class="btn btn-outline-dark" [disabled]="!form.invalid" (click)="activeModal.close('Close click')">Close</button>
     </div>
   `
 })
 export class AddPlaceModalContent {
 
+  form = new FormGroup({
+    inputPlace: new FormControl('', Validators.required)
+  });
+
   place: PlaceRequest = {
     placeId: undefined, placeName:''
   }
+
   constructor(public activeModal: NgbActiveModal, private placeService: PlaceService) { }
+
+  ngOnInit(): void {
+
+  
+  }
+    
+  // get power() { return this.form.get('power'); }
 
   addPlace(){
     this.placeService.addPlace(this.place).subscribe(
@@ -44,6 +58,9 @@ export class AddPlaceModalContent {
         console.log("Inside add place method")
         console.log(res);
         this.onClose();
+      },
+      error => {
+        console.log(error);
       }
     )
   }
