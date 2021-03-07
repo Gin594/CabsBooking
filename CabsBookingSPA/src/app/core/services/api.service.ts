@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { BookingRequest } from 'src/app/shared/models/bookingRequest';
 import { PlaceRequest } from 'src/app/shared/models/placeRequest';
 import { CabRequest } from 'src/app/shared/models/cabRequest';
+import { HistoryRequest } from 'src/app/shared/models/historyRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -82,6 +83,24 @@ export class ApiService {
 
   deleteCab(path: string, id:number) : Observable<any> {
     return this.http.delete(`${environment.apiUrl}${path}`+'/'+id).pipe(
+      map(resp => resp as any)
+    )
+  }
+
+  getAllHistories(path: string) : Observable<any[]> {
+    return this.http.get(`${environment.apiUrl}${path}`).pipe(
+      map(resp => resp as any[])
+    )
+  }
+
+  addHistory(path: string, history: HistoryRequest) : Observable<any>{
+    return this.http.post(`${environment.apiUrl}${path}`, history).pipe(
+      map(resp => resp as any)
+    )
+  }
+
+  deleteHistory(path: string, id:number) : Observable<any> {
+    return this.http.delete(`${environment.apiUrl}${path}` + '/' + id).pipe(
       map(resp => resp as any)
     )
   }

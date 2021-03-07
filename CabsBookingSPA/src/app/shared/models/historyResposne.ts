@@ -1,14 +1,17 @@
-export interface BookingResponse{
+export interface HistoryResponse{
     id: number,
     email:string,
     bookingDate: Date,
     bookingTime: string,
     pickupAddress: string,
     landMark: string,
-    pickupDate?: Date,
+    pickupDate: Date,
     pickupTime: string,
     cabTypeId?: number,
     contactNo: string,
+    feedback: string,
+    comp_time: string,
+    charge: number,
     from: From,
     to: To,
     cab: Cab

@@ -1,1 +1,80 @@
-<p>booking-history works!</p>
+
+<table *ngIf="histories.length != 0" class="table table-striped">
+    <thead>
+        <tr>
+            <th colspan="16" class="text-center"><h3>Booking Management</h3></th>
+        </tr>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Email</th>
+      <th scope="col">Booking Date</th>
+      <th scope="col">Booking Time</th>
+      <th scope="col">From</th>
+      <th scope="col">To</th>
+      <th scope="col">Pickup Date</th>
+      <th scope="col">pickup Time</th>
+      <th scope="col">PickUp Address</th>
+      <th scope="col">Landmark</th>
+      <th scope="col">CabTypeName</th>
+      <th scope="col">Complete Time</th>
+      <th scope="col">Charge</th>
+      <th scope="col">Feedback</th>
+      <th scope="col" colspan="2" class="text-center">Operation</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let history of histories; index as i">
+            <th scope="row">{{i + 1}}</th>
+            <td>
+                {{history.email}}
+            </td> 
+            <td>
+                {{history.bookingDate | date:'MM/dd/yyyy'}}
+            </td> 
+            <td>
+                {{history.bookingTime}}
+            </td> 
+            <td>
+                {{history.from.placeName}}
+            </td> 
+            <td>
+                {{history.to.placeName}}
+            </td> 
+            <td>
+                {{history.pickupDate | date:'MM/dd/yyyy'}}
+            </td> 
+            <td>
+                {{history.pickupTime}}
+            </td> 
+            <td>
+                {{history.pickupAddress}}
+            </td> 
+            <td>
+                {{history.landMark}}
+            </td> 
+            <td>
+                {{history.cab.cabTypeName}}
+            </td> 
+            <td>
+                {{history.comp_time}}
+            </td> 
+            <td>
+                {{history.charge | currency}}
+            </td> 
+            <td>
+                {{history.feedback}}
+            </td> 
+            <td>
+                <!-- <app-edit-booking [booking] = 'booking'></app-edit-booking> -->
+            </td> 
+            <td>
+                <button type="button" class="btn btn-danger" [ngStyle]="{width: '80px'}" (click)="deleteHistory(history.id)">Delete</button>
+            </td> 
+        </tr>
+    </tbody>
+  </table>
+  
+<h3 class="text-center mt-5" *ngIf="histories.length == 0">
+    Currently No History Record!
+</h3>  
+  

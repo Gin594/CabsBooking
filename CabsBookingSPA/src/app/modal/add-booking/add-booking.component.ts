@@ -115,6 +115,21 @@ import { PlaceResponse } from 'src/app/shared/models/placeResponse';
           </div>
           <div class = "col">
           <div class="form-group">
+              <label for="txtLandmark">landmark</label>
+              <input
+                type="text"
+                class="form-control"
+                id="txtLandmark"
+                name="landmark"
+                [(ngModel)]="booking.landMark"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+        <div class = "col">
+          <div class="form-group">
               <label for="txtAddress">Pickup Address</label>
               <input
                 type="text"
@@ -142,7 +157,7 @@ export class AddBookingModalContent {
   @Input() cabs: CabResponse[] = [];
 
   booking: BookingRequest = {
-    id:undefined, email: '', bookingDate: undefined,
+    id:undefined, email: '', bookingDate: new Date(),
     bookingTime: undefined, cabTypeId: undefined, contactNo: '',
     fromPlace: undefined, toPlace: undefined, landMark: '', pickupAddress: '',
     pickupDate: new Date(), pickupTime: ''

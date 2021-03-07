@@ -12,5 +12,6 @@ namespace CabsBooking.Core.RepositoryInterfaces
         Task<BookingHistory> UpdateAsync(BookingHistory history);
         Task DeleteAsync(BookingHistory history);
         Task<IEnumerable<BookingHistory>> ListAllAysnc();
+        Task<BookingHistory> GetHistoryById(int id);
     }
 }

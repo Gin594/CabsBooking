@@ -1,7 +1,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th colspan="13" class="text-center"><h3>Booking Management</h3></th>
+            <th colspan="14" class="text-center"><h3>Booking Management</h3></th>
         </tr>
     <tr>
       <th scope="col">#</th>
@@ -55,10 +55,13 @@
                 <app-edit-booking [booking] = 'booking'></app-edit-booking>
             </td> 
             <td>
-                <button type="button" class="btn btn-danger" [ngStyle]="{width: '80px'}" (click)="deleteBooking(booking.id)">Delete</button>
+                <app-complete [booking]='booking'></app-complete>
+            </td> 
+            <td>
+                <button type="button" class="btn btn-danger" [ngStyle]="{width: '100px'}" (click)="deleteBooking(booking.id)">Delete</button>
             </td> 
         </tr>
-      <td colspan="13"><app-add-booking></app-add-booking></td>
+      <td colspan="14"><app-add-booking></app-add-booking></td>
     </tbody>
   </table>
   

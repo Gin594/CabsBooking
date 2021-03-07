@@ -1,14 +1,16 @@
-export interface BookingRequest{
-    id?: number,
+export interface HistoryRequest{
     email:string,
     bookingDate?: Date,
     bookingTime?: string,
-    fromPlace?: number,
-    toPlace?: number,
     pickupAddress: string,
     landMark: string,
+    fromPlace?:number,
+    toPlace?:number,
     pickupDate?: Date,
     pickupTime: string,
     cabTypeId?: number,
     contactNo: string,
+    feedback: string,
+    comp_time: string,
+    charge?: number,
 }

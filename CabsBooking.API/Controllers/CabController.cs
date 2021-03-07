@@ -32,16 +32,16 @@ namespace CabsBooking.API.Controllers
         [Route("add")]
         public async Task<IActionResult> AddCab(CabRequestModel cabRequest)
         {
-            var place = await _cabService.AddCab(cabRequest);
-            return Ok(place);
+            var cab = await _cabService.AddCab(cabRequest);
+            return Ok(cab);
         }
 
         [HttpPut]
         [Route("edit")]
         public async Task<IActionResult> UpdatePlace(CabRequestModel cabRequest)
         {
-            var place = await _cabService.UpdateCab(cabRequest);
-            return Ok(place);
+            var cab = await _cabService.UpdateCab(cabRequest);
+            return Ok(cab);
         }
 
         [HttpDelete]

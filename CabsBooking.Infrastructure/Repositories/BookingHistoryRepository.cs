@@ -30,9 +30,14 @@ namespace CabsBooking.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<BookingHistory> GetHistoryById(int id)
+        {
+            return await _dbContext.BookingHistories.FindAsync(id);
+        }
+
         public async Task<IEnumerable<BookingHistory>> ListAllAysnc()
         {
-            return await _dbContext.BookingHistories.ToListAsync();
+            return await _dbContext.BookingHistories.Include(bh => bh.Cab).Include(bh => bh.From).Include(bh => bh.To).ToListAsync();
         }
 
         public async Task<BookingHistory> UpdateAsync(BookingHistory history)

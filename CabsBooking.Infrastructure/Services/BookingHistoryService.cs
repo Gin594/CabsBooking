@@ -1,4 +1,8 @@
-﻿using CabsBooking.Core.Entities;
+﻿using AutoMapper;
+using CabsBooking.Core.Entities;
+using CabsBooking.Core.Models.Request;
+using CabsBooking.Core.Models.Response;
+using CabsBooking.Core.RepositoryInterfaces;
 using CabsBooking.Core.ServiceInterfaces;
 using System;
 using System.Collections.Generic;
@@ -9,24 +13,39 @@ namespace CabsBooking.Infrastructure.Services
 {
     public class BookingHistoryService : IBookingHistoryService
     {
-        public Task<BookingHistory> AddHistory(BookingHistory history)
+        private readonly IBookingHistoryRepository _historyRepository;
+        private readonly IMapper _mapper;
+
+        public BookingHistoryService(IBookingHistoryRepository historyRepository, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _historyRepository = historyRepository;
+            _mapper = mapper;
+        }
+        public async Task<BookingHistoryResponseModel> AddHistory(BookingHistoryRequestModel historyRequest)
+        {
+            var history = _mapper.Map<BookingHistory>(historyRequest);
+            history.Status = "completed";
+            var response = await _historyRepository.AddAsync(history);
+            return _mapper.Map<BookingHistoryResponseModel>(response);
         }
 
-        public Task DeleteHistory(BookingHistory history)
+        public async Task DeleteHistory(int id)
         {
-            throw new NotImplementedException();
+            var history = await _historyRepository.GetHistoryById(id);
+            await _historyRepository.DeleteAsync(history);
         }
 
-        public Task<IEnumerable<BookingHistory>> GetAllHistorys()
+        public async Task<IEnumerable<BookingHistoryResponseModel>> GetAllHistorys()
         {
-            throw new NotImplementedException();
+            var histories = await _historyRepository.ListAllAysnc();
+            return _mapper.Map<IEnumerable<BookingHistoryResponseModel>>(histories);
         }
 
-        public Task<BookingHistory> UpdateHistory(BookingHistory history)
+        public async Task<BookingHistoryResponseModel> UpdateHistory(BookingHistoryRequestModel historyRequest)
         {
-            throw new NotImplementedException();
+            var history = _mapper.Map<BookingHistory>(historyRequest);
+            var response = await _historyRepository.UpdateAsync(history);
+            return _mapper.Map<BookingHistoryResponseModel>(response);
         }
     }
 }

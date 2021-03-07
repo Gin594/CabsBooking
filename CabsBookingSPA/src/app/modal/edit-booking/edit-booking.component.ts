@@ -147,7 +147,7 @@ export class EditBookingModalContent {
     id:undefined, email: '', bookingDate: undefined,
     bookingTime: undefined, cabTypeId: undefined, contactNo: '',
     fromPlace: undefined, toPlace: undefined, landMark: '', pickupAddress: '',
-    pickupDate: new Date(), pickupTime: ''
+    pickupDate: undefined, pickupTime: ''
   };
   constructor(public activeModal: NgbActiveModal, private bookingService: BookingService) {
   }
