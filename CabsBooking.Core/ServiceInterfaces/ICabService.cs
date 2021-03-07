@@ -1,4 +1,5 @@
 ﻿using CabsBooking.Core.Entities;
+using CabsBooking.Core.Models.Request;
 using CabsBooking.Core.Models.Response;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,9 @@ namespace CabsBooking.Core.ServiceInterfaces
 {
     public interface ICabService
     {
-        Task<CabResponseModel> AddCab(Cab cab);
-        Task<CabResponseModel> UpdateCab(Cab cab);
-        Task DeleteCab(Cab cab);
+        Task<CabResponseModel> AddCab(CabRequestModel cabRequest);
+        Task<CabResponseModel> UpdateCab(CabRequestModel cabRequest);
+        Task DeleteCab(int id);
         Task<IEnumerable<CabResponseModel>> GetAllCabs();
     }
 }

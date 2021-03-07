@@ -16,6 +16,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { from } from 'rxjs';
 import { EditBookingComponent, EditBookingModalContent } from './modal/edit-booking/edit-booking.component';
 import { PlaceComponent } from './place/place.component';
+import { AddPlaceComponent, AddPlaceModalContent } from './modal/add-place/add-place.component';
+import { EditPlaceComponent, EditPlaceModalContent } from './modal/edit-place/edit-place.component';
+import { AddCabComponent } from './modal/add-cab/add-cab.component';
+import { EditCabComponent } from './modal/edit-cab/edit-cab.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,14 @@ import { PlaceComponent } from './place/place.component';
     AddBookingModalContent,
     EditBookingComponent,
     EditBookingModalContent,
-    PlaceComponent
+    PlaceComponent,
+    AddPlaceComponent,
+    AddPlaceModalContent,
+    EditPlaceComponent,
+    EditPlaceModalContent,
+    AddCabComponent,
+    EditCabComponent,
+    
   ],
   imports: [
     BrowserModule,

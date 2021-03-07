@@ -29,6 +29,11 @@ namespace CabsBooking.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<Cab> GetCabById(int id)
+        {
+            return await _dbContext.Cabs.FindAsync(id);
+        }
+
         public async Task<IEnumerable<Cab>> ListAllAysnc()
         {
             return await _dbContext.Cabs.ToListAsync();

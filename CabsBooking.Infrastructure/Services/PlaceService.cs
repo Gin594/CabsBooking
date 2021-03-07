@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CabsBooking.Core.Entities;
+using CabsBooking.Core.Models.Request;
 using CabsBooking.Core.Models.Response;
 using CabsBooking.Core.RepositoryInterfaces;
 using CabsBooking.Core.ServiceInterfaces;
@@ -19,14 +20,17 @@ namespace CabsBooking.Infrastructure.Services
             _placeRepository = placeRepository;
             _mapper = mapper;
         }
-        public Task<PlaceResponseModel> AddPlace(Place place)
+        public async Task<PlaceResponseModel> AddPlace(PlaceRequestModel placeRequest)
         {
-            throw new NotImplementedException();
+            var place = _mapper.Map<Place>(placeRequest);
+            var response = await _placeRepository.AddAsync(place);
+            return _mapper.Map<PlaceResponseModel>(response);
         }
 
-        public Task DeletePlace(Place place)
+        public async Task DeletePlace(int id)
         {
-            throw new NotImplementedException();
+            var place = await _placeRepository.GetPlaceById(id);
+            await _placeRepository.DeleteAsync(place);
         }
 
         public async Task<IEnumerable<PlaceResponseModel>> GetAllPlaces()
@@ -35,9 +39,11 @@ namespace CabsBooking.Infrastructure.Services
             return _mapper.Map<IEnumerable<PlaceResponseModel>>(places);
         }
 
-        public Task<PlaceResponseModel> UpdatePlace(Place place)
+        public async Task<PlaceResponseModel> UpdatePlace(PlaceRequestModel placeRequest)
         {
-            throw new NotImplementedException();
+            var place = _mapper.Map<Place>(placeRequest);
+            var response = await _placeRepository.UpdateAsync(place);
+            return _mapper.Map<PlaceResponseModel>(response);
         }
     }
 }

@@ -1,1 +1,38 @@
-<p>cab works!</p>
+<div class="row ">
+    <div class="col-4">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th colspan="5" class="text-center"><h3>Cabs Management</h3></th>
+                </tr>
+            <tr>
+                <th scope="col" [ngStyle]="{width: '20%'}">#</th>
+                <th scope="col"[ngStyle]="{width: '30%'}">Cab</th>
+                <th scope="col" colspan="2" class="text-center">Operation</th>
+            </tr>
+            </thead>
+          
+            <tbody>
+                <tr *ngFor="let cab of cabs; index as i">
+                    <th scope="row">{{i + 1}}</th>
+                    <td>
+                        {{cab.cabTypeName}}
+                    </td> 
+                    <td>
+                        <button type="button" class="btn btn-primary" [ngStyle]="{width: '80px'}">Edit</button>
+                    </td> 
+                    <td>
+                        <button type="button" class="btn btn-danger" [ngStyle]="{width: '80px'}" >Delete</button>
+                    </td> 
+                </tr>
+              <td colspan="4"><button type="button" class="btn btn-success" >Add Cab</button>
+              </td>
+            </tbody>
+          </table>
+    </div>
+</div>
+
+  
+  
+  
+  

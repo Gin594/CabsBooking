@@ -15,7 +15,9 @@ namespace CabsBooking.Infrastructure.Helpers
             CreateMap<Booking, BookingResponseModel>();
             CreateMap<BookingRequestModel, Booking>();
             CreateMap<Place, PlaceResponseModel>();
+            CreateMap<PlaceRequestModel, Place>();
             CreateMap<Cab, CabResponseModel>();
+            CreateMap<CabRequestModel, Cab>();
         }
     }
 }

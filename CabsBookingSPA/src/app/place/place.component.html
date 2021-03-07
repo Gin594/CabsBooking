@@ -1,1 +1,39 @@
-<p>place works!</p>
+<div class="row ">
+    <div class="col-4">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th colspan="5" class="text-center"><h3>Places Management</h3></th>
+                </tr>
+            <tr>
+                <th scope="col" [ngStyle]="{width: '20%'}">#</th>
+                <th scope="col"[ngStyle]="{width: '30%'}">Place</th>
+                <th scope="col" colspan="2" class="text-center">Operation</th>
+            </tr>
+            </thead>
+          
+            <tbody>
+                <tr *ngFor="let place of places; index as i">
+                    <th scope="row">{{i + 1}}</th>
+                    <td>
+                        {{place.placeName}}
+                    </td> 
+                    <td>
+                        <app-edit-place [place]='place'></app-edit-place>
+                    </td> 
+                    <td>
+                        <button type="button" class="btn btn-danger" [ngStyle]="{width: '80px'}" (click)='deletePlace(place.placeId)' >Delete</button>
+                    </td> 
+                </tr>
+              <td colspan="4">
+                  <app-add-place></app-add-place>
+              </td>
+            </tbody>
+          </table>
+    </div>
+</div>
+
+  
+  
+  
+  

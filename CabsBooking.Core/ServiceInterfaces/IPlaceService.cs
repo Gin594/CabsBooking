@@ -1,4 +1,5 @@
 ﻿using CabsBooking.Core.Entities;
+using CabsBooking.Core.Models.Request;
 using CabsBooking.Core.Models.Response;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,9 @@ namespace CabsBooking.Core.ServiceInterfaces
 {
     public interface IPlaceService
     {
-        Task<PlaceResponseModel> AddPlace(Place place);
-        Task<PlaceResponseModel> UpdatePlace(Place place);
-        Task DeletePlace(Place place);
+        Task<PlaceResponseModel> AddPlace(PlaceRequestModel placeRequest);
+        Task<PlaceResponseModel> UpdatePlace(PlaceRequestModel placeRequest);
+        Task DeletePlace(int id);
         Task<IEnumerable<PlaceResponseModel>> GetAllPlaces();
     }
 }
