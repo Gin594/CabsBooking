@@ -4,14 +4,16 @@ using CabsBooking.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CabsBooking.Infrastructure.Migrations
 {
     [DbContext(typeof(CabsBookingDbContext))]
-    partial class CabsBookingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210307182559_UpdateTableColumn")]
+    partial class UpdateTableColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

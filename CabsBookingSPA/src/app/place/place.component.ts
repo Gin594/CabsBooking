@@ -9,8 +9,8 @@ import { PlaceResponse } from '../shared/models/placeResponse';
 })
 export class PlaceComponent implements OnInit {
 
-  places : PlaceResponse[] = [];
-  constructor(private placeService:PlaceService) { 
+  places: PlaceResponse[] = [];
+  constructor(private placeService: PlaceService) {
     this.placeService.listen().subscribe(res => {
       this.ngOnInit();
     })
@@ -26,15 +26,17 @@ export class PlaceComponent implements OnInit {
     )
   }
 
-  deletePlace(id:number){
-    if(confirm("Are you sure to delete this booking?")) {
+  deletePlace(id: number) {
+    if (confirm("Are you sure to delete this booking?")) {
       this.placeService.deletePlace(id).subscribe(
         res => {
           console.log(res);
           this.placeService.filter("Place deleted");
         },
         error => {
-          alert("Can not delete this place right now, because it is currently in use")
+          alert("Can not delete this place right now,"+ 
+          "currently used in multiple record,delete it in parent table first." + 
+          "Check it in booking management or history management")
         }
       )
     }

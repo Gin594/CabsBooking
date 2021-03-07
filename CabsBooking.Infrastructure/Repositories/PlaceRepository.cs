@@ -1,4 +1,5 @@
 ﻿using CabsBooking.Core.Entities;
+using CabsBooking.Core.Exceptions;
 using CabsBooking.Core.RepositoryInterfaces;
 using CabsBooking.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -25,8 +26,16 @@ namespace CabsBooking.Infrastructure.Repositories
 
         public async Task DeleteAsync(Place place)
         {
-            _dbContext.Places.Remove(place);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Places.Remove(place);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                throw new ConflictException("property may used in mutiple cascading table, make sure you delete it in parents table first");
+            }
+           
         }
 
         public async Task<Place> GetPlaceById(int id)
